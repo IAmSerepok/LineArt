@@ -100,7 +100,7 @@ class App:
             rng (Optional[str]): Seed для воспроизводимости цветов.
 
         Returns:
-            Кортеж (R, G, B) с значениями 0-255.
+            color (Typle[int, int, int]): Кортеж (R, G, B) с значениями 0-255.
         """
         if rng is not None:
             seed(rng)
@@ -131,7 +131,7 @@ class App:
             radius (float): Радиус влияния.
 
         Returns:
-            Новые координаты (x1, y1).
+            new_cords (Tuple[float, float]): Новые координаты (x1, y1).
         """
         x1, y1 = x0, y0
 

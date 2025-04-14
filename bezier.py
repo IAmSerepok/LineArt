@@ -32,7 +32,7 @@ class BezierCurve:
                0 соответствует начальной точке, 1 - конечной.
 
         Returns:
-            Координаты (x, y) точки на кривой при заданном t.
+            cords (Typle[float, float]): Координаты (x, y) точки на кривой при заданном t.
         """
         points = []
         for i in range(len(self.points) - 1):
