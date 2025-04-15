@@ -28,7 +28,7 @@ class App:
         grid (np.ndarray): Трехмерный массив векторов (columns, rows, 2).
     """
 
-    def fill_grid(self) -> None:
+    def __fill_grid(self) -> None:
         """Заполняет сетку случайными векторами."""
         if self.vector_seed is not None:
             seed(self.vector_seed)
@@ -79,7 +79,7 @@ class App:
         self.draw = ImageDraw.Draw(self.image)
 
         self.grid = np.zeros((self.columns, self.rows, 2), dtype=np.float32)
-        self.fill_grid()
+        self.__fill_grid()
 
     def save(self, file_name: Optional[str] = None) -> None:
         """Сохраняет и/или отображает изображение.
@@ -93,7 +93,7 @@ class App:
         self.image.show()
 
     @staticmethod
-    def get_random_color(rng: Optional[int] = None) -> Tuple[int, int, int]:
+    def __get_random_color(rng: Optional[int] = None) -> Tuple[int, int, int]:
         """Генерирует случайный цвет в RGB.
 
         Args:
@@ -110,7 +110,7 @@ class App:
 
     @staticmethod
     @jit(fastmath=True)
-    def next_point(
+    def __next_point(
         x0: float,
         y0: float,
         columns: int,
@@ -144,7 +144,7 @@ class App:
 
         return x1, y1
 
-    def draw_line(
+    def __draw_line(
         self,
         x_start: float,
         y_start: float,
@@ -166,7 +166,7 @@ class App:
         points = [(x0, y0)]
 
         for _ in prange(steps):
-            x1, y1 = self.next_point(x0, y0, self.columns, self.rows,
+            x1, y1 = self.__next_point(x0, y0, self.columns, self.rows,
                                     self.grid, self.resolution, self.radius)
             points.append((x1, y1))
             x0, y0 = x1, y1
@@ -193,5 +193,5 @@ class App:
             if self.line_seed is not None:
                 seed(self.line_seed)
             x, y = random() * self.width, random() * self.height
-            color = self.get_random_color(self.color_seed)
-            self.draw_line(x, y, 50, color, randint(3, 8))
+            color = self.__get_random_color(self.color_seed)
+            self.__draw_line(x, y, 50, color, randint(3, 8))
